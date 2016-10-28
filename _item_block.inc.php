@@ -42,6 +42,8 @@ $params = array_merge( array(
 
 		<div class="bSmallHead">
 		<?php
+			if( ! $Item->is_intro() ) // Do NOT apply tags, comments and feedback on intro posts
+			{
 			if( $Item->status != 'published' )
 			{
 				$Item->status( array( 'format' => 'styled' ) );
@@ -61,6 +63,7 @@ $params = array_merge( array(
 					'link_text' => 'preferredname',
 				) );
 
+			// List all categories attached to this post:
 			$Item->categories( array(
 				'before'          => ', '.T_('Categories').': ',
 				'after'           => ' ',
@@ -76,6 +79,7 @@ $params = array_merge( array(
 					'after' =>          ' ',
 					'separator' =>      ', ',
 				) );
+			}
 		?>
 		</div>
 
@@ -88,7 +92,9 @@ $params = array_merge( array(
 		?>
 
 		<div class="bSmallPrint">
-			<?php
+			<?php			
+				if( ! $Item->is_intro() ) // Do NOT apply tags, comments and feedback on intro posts
+				{
 				$Item->permanent_link();
 
 				// Link to comments, trackbacks, etc.:
@@ -114,6 +120,7 @@ $params = array_merge( array(
 								'link_title' => '#',
 								'use_popup' => false,
 							) );
+				}
 
 				$Item->edit_link( array( // Link to backoffice for editing
 						'before'    => ' &bull; ',
